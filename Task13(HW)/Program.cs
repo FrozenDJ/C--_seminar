@@ -4,12 +4,24 @@
 // 78 -> третьей цифры нет
 // 32679 -> 6
 
-Console.Write("Write your number: ");
-int number = Convert.ToInt32(Console.ReadLine());
-int count = number.Length;
-
-for (int i = 0; i < count; i++)
+Console.WriteLine("Write your number: ");
+int startNumber = Convert.ToInt32(Console.ReadLine());
+int count = 0;
+int FindThirdDigit(int num)
 {
-    Console.WriteLine($"{number} -> {count[2]}");
+    while (num > 999)
+    {
+        num = num / 10;
+        count++;
+    }
+    return num % 10;
 }
-Console.WriteLine($"{number} -> No third digit");
+
+if (startNumber < 100)
+{
+    Console.WriteLine($"{startNumber} -> No third digit");
+    return;
+}
+
+int result = FindThirdDigit(startNumber);
+Console.WriteLine($"{startNumber} -> {result}");
