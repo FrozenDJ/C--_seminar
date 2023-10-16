@@ -5,7 +5,7 @@
 // 1 4 7 2
 // 5 9 2 3
 // 8 4 2 4
-// 17 -> такого числа в массиве нет
+// 1,7 -> такого числа в массиве нет
 
 using System;
 
@@ -17,12 +17,12 @@ public class Answer
 
         for (int i = 0; i < matrix.GetLength(0); i++)
         {
-            Console.Write("[");
+            // Console.Write("[");
             for (int j = 0; j < matrix.GetLength(1); j++)
             {
                 Console.Write($"{matrix[i, j],4}");
             }
-            Console.WriteLine("]");
+            Console.WriteLine();
         }
 
     }
@@ -38,7 +38,7 @@ public class Answer
         {
             for (int j = 0; j < matrix.GetLength(1); j++)
             {
-                matrix[i, j] = rnd.Next(n, m + k);
+                matrix[i, j] = rnd.Next(1, 10) + k;
             }
         }
         return matrix;
@@ -47,29 +47,29 @@ public class Answer
     public static int[] FindNumberByPosition(int[,] matrix, int rowPosition, int columnPosition)
     {
         // Введите свое решение ниже
-        int[] arr = new int[2];
-        for (int i = 0; i < arr.Length; i++)
+        int[] findNumber = { rowPosition, columnPosition };
+        for (int i = 0; rowPosition < matrix.GetLength(0); i++)
         {
-            if (rowPosition <= matrix.GetLength(0) && columnPosition <= matrix.GetLength(1))
+            for (int j = 0; columnPosition < matrix.GetLength(1); j++)
             {
-                arr[i] = rowPosition;
-                arr[i + 1] = columnPosition;
-                return arr;
+                findNumber[i] = rowPosition;
+                findNumber[i + 1] = columnPosition;
             }
-            return arr;
         }
+        return findNumber;
     }
 
-    public static void PrintCheckIfError(int[] results, int X, int Y)
+
+    public static void PrintCheckIfError(int[] results, int x, int y)
     {
         // Введите свое решение ниже
-        if (results.GetLength(0) < X || results.GetLength(1) < Y)
+        if (results.GetLength(0) < x || results.GetLength(1) < y)
         {
             Console.WriteLine("There is no such index");
         }
         else
         {
-            Console.WriteLine($"The number in [{X}, {Y}] is {results[X, Y]}");
+            Console.WriteLine($"The number in [{x}, {y}]");
         }
     }
 
