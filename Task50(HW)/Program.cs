@@ -17,7 +17,6 @@ public class Answer
 
         for (int i = 0; i < matrix.GetLength(0); i++)
         {
-            // Console.Write("[");
             for (int j = 0; j < matrix.GetLength(1); j++)
             {
                 Console.Write($"{matrix[i, j],4}");
@@ -31,15 +30,15 @@ public class Answer
     {
         // Введите свое решение ниже
 
-        int[,] matrix = new int[n, m];
-        Random rnd = new Random();
+        int[,] matrix = new int[n, m];                          // заполнение числами подряд 
+        Random rnd = new Random();                              // int currentValue = 1;
 
         for (int i = 0; i < matrix.GetLength(0); i++)
         {
             for (int j = 0; j < matrix.GetLength(1); j++)
             {
-                matrix[i, j] = rnd.Next(1, 10) + k;
-            }
+                matrix[i, j] = rnd.Next(1, 10) + k;             // newMatrix[i,j] = currentValue;
+            }                                                   // currentValue += k;
         }
         return matrix;
     }
@@ -47,31 +46,35 @@ public class Answer
     public static int[] FindNumberByPosition(int[,] matrix, int rowPosition, int columnPosition)
     {
         // Введите свое решение ниже
-        int[] findNumber = { rowPosition, columnPosition };
-        for (int i = 0; rowPosition < matrix.GetLength(0); i++)
-        {
-            for (int j = 0; columnPosition < matrix.GetLength(1); j++)
-            {
-                findNumber[i] = rowPosition;
-                findNumber[i + 1] = columnPosition;
-            }
-        }
-        return findNumber;
-    }
+        int[] findNumber = new int[2];
 
-
-    public static void PrintCheckIfError(int[] results, int x, int y)
-    {
-        // Введите свое решение ниже
-        if (results.GetLength(0) < x || results.GetLength(1) < y)
+        if (rowPosition >= 0 && rowPosition < matrix.GetLength(0)
+                             && columnPosition >= 0 && columnPosition < matrix.GetLength(1))
         {
-            Console.WriteLine("There is no such index");
+            findNumber[0] = rowPosition;
+            findNumber[1] = columnPosition;
+            return findNumber;
         }
         else
         {
-            Console.WriteLine($"The number in [{x}, {y}]");
+            return findNumber;
         }
     }
+   
+
+    public static void PrintCheckIfError(int[,] results, int x, int y)
+    {
+        // Введите свое решение ниже
+        if (x >= 0 && x < results.GetLength(0) && y >= 0 && y < results.GetLength(1))
+        {
+            Console.WriteLine($"The number in [{x}, {y}] is {results[x, y]}");
+        }
+        else
+        {
+            Console.WriteLine("There is no such index");
+        }
+    }
+
 
     // Не удаляйте и не меняйте метод Main! 
     static public void Main(string[] args)
@@ -100,6 +103,7 @@ public class Answer
         int[,] result = CreateIncreasingMatrix(n, m, k);
         PrintArray(result);
         Console.WriteLine();
-        PrintCheckIfError(FindNumberByPosition(result, x, y), x, y);
+        int[] find = FindNumberByPosition(result, x, y);
+        PrintCheckIfError(result, x, y);
     }
 }
